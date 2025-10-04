@@ -200,6 +200,16 @@ Use it:
 
 ## Common Issues and Solutions
 
+For detailed troubleshooting, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** which covers:
+- Installation problems
+- Compilation errors
+- Package errors
+- Font errors
+- Minted/Pygments errors
+- Platform-specific issues
+
+### Quick Solutions to Common Issues:
+
 ### Issue: "minted Error: Missing Pygments output"
 
 **Solution:** Ensure that:
@@ -236,9 +246,19 @@ xelatex -shell-escape filename.tex
 
 **Solution:** Ensure all required packages are installed. The error message usually indicates which package is missing.
 
+For more detailed solutions and additional issues, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+
 ## Testing Your Setup
 
-To verify your LaTeX installation is complete, try compiling one of the simpler cheatsheets first:
+You can use the provided setup checker script:
+
+```bash
+./check-setup.sh
+```
+
+This will verify that all required tools (XeLaTeX, Python, Pygments) are properly installed.
+
+Alternatively, verify manually by trying to compile one of the simpler cheatsheets:
 
 ```bash
 cd MA1521
