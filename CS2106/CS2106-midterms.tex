@@ -421,19 +421,22 @@ outline/.style={draw=circle edge, thick}}
   \end{itemize}
   \subsubsection{First-Come First-Served (FCFS)}
   \begin{itemize}
+    \item Batch processing, non-preemptive
     \item Tasks are stored on a FIFO queue based on arrival time. Pick the head of queue to run until (task is done OR task is blocked). Blocked task removed from queue, when it is ready again, placed at back of queue like a newly arrived task.
-    \item \textbf{Guaranteed} to have no starvation: no of tasks in front of task X in FIFO is always decreasing -> task X will get its chance eventually.
+    \item Guaranteed to have \textbf{no starvation}: no of tasks in front of task X in FIFO is always decreasing -> task X will get its chance eventually.
     \item Shortcoming: \textbf{Convoy Effect} -- due to non-preemptiveness, one slow process (CPU intensive) slows down the performance of the entire set of processes.
   \end{itemize}
   \subsubsection{Shortest Job First (SJF)}
   \begin{itemize}
-    \item Select the task with the smallest total CPU time, thus \textbf{guaranteeing} smallest average waiting time.
-    \item Shortcomings: Need to know total CPU time for a task in advance (have to guess if not available), starvation is possible (biased towards short jobs, long jobs may never get a chance)
+    \item Batch processing, non-preemptive
+    \item Select the task with the smallest total CPU time, thus guaranteeing \textbf{smallest average waiting time}.
+    \item Shortcomings: Need to know total CPU time for a task in advance (have to guess if not available), \textbf{starvation is possible} (biased towards short jobs, long jobs may never get a chance)
     \item Predicting CPU Time, common approach (\textbf{Exponential Average}):\\
     $\text{Predicted}_{n+1} = \alpha \text{Actual}_n + (1-\alpha)\text{Predicted}_n$, where $\alpha =$ degree of weighting decrease, higher $\alpha$ discounts older observations faster
   \end{itemize}
   \subsubsection{Shortest Remaining Time (SRT)}
   \begin{itemize}
+    \item Batch processing, preemptive
     \item Select job with shortest remaining (or expected) time.
     \item Variation of SJF that is preemptive and uses remaining time.
     \item New job with shorter remaining time can preempt currently running job
@@ -456,6 +459,7 @@ outline/.style={draw=circle edge, thick}}
   \end{itemize}
   \subsubsection{Round Robin (RR)}
   \begin{itemize}
+    \item Interactive, preemptive
     \item Tasks stored in a FIFO queue, pick task from head of queue until (time quantum elapsed OR task gives up CPU voluntarily OR task blocks)
     \item Basically a preemptive version of FCFS
     \item Response time guarantee: given $n$ tasks and quantum $q$, time before a task get CPU is bounded by $(n-1)q$
@@ -463,16 +467,18 @@ outline/.style={draw=circle edge, thick}}
   \end{itemize}
   \subsubsection{Priority Scheduling}
   \begin{itemize}
+    \item interactive, both pre and non-pre
     \item Assign a priority value to all tasks, select task with highest priority value.
-    \item Preemptive: highest priority process can preempt running process with lower priority
-    \item Non-preemptive: late coming high priority process has to wait for next round of scheduling
-    \item \textbf{Shortcomings}: Low priority process can starve, worse in preemptive variant
-    \item \textbf{Possible solutions}: Decrease the prioty of currently running process after every time quantum, Given the current running process a time quantum -- this process not considered in the next round of scheduling
-    \item Generally hard to guarantee/control exact amount of CPU time given to a process
-    \item \textbf{Priority Inversion}: 3 processes, priorities Hi, Mi, Lo. L locks resource, M pre-empts L, A arrives and tries to lock same resource as L. Then M continues executing although H has higher priority.
+    \item Preemptive version: highest priority process can preempt running process with lower priority
+    \item Non-preemptive version: late coming high priority process has to wait for next round of scheduling
+    \item Shortcomings: \textbf{Low priority process can starve}, worse in preemptive variant
+    \item Possible solutions: \textbf{Decrease the priority of currently running process after every time quantum}, Given the current running process a time quantum -- this process not considered in the next round of scheduling
+    \item Generally \textbf{hard to guarantee/control exact amount of CPU time} given to a process
+    \item \textbf{Priority Inversion}: 3 processes, priorities Hi, Mi, Lo. Lo locks resource, Mi pre-empts Lo, Hi arrives and tries to lock same resource as Lo. Then Mi continues executing although Hi has higher priority.
   \end{itemize}
   \subsubsection{Multi-level Feedback Queue (MLFQ)}
   \begin{itemize}
+    \item interactive, preemptive
     \item Adaptive, minimising both response time for IO-bound and turnaround time for CPU-bound
     \item Rules:
     \begin{itemize}
@@ -482,20 +488,21 @@ outline/.style={draw=circle edge, thick}}
       \item If a job fully utilised its time slice -> priority reduced
       \item If a job gives up/blocks before it finishes the time slice -> priority retained
     \end{itemize}
-    \item \textbf{Shortcomings}: (1) Starvation -- if there are too many interactive jobs, long-running jobs will starve, (2) gaming the scheduler by running for 99\% of time quantum, then relinquish the CPU, (3) a program may change its behaviour CPU-bound -> interactive
-    \item Possible solution:
-    \begin{itemize}
-      \item \textbf{Priority boost}: after some time period S, move all jobs to the highest priority. Guaranteeing no starvation as highest priority -> RR, and the case when CPU-bound job has become interactive
-      \item \textbf{Better accounting}: Once a job uses up its time allotment at a given level, its priority is reduced
-    \end{itemize}
+    \item \textbf{Shortcomings}: 
+    \item (1) Starvation -- if there are too many interactive jobs, long-running jobs will starve (even if interactive after processing)
+    \item (2) gaming the scheduler by running for 99\% of time quantum, then relinquish the CPU
+    \item \textbf{Possible solutions}:
+    \item \textbf{(1) Priority boost}: after some time period S, move all jobs to the highest priority. Guaranteeing no starvation as highest priority -> RR, and the case when CPU-bound job has become interactive
+    \item \textbf{(2) Better accounting}: Accumulate total CPU usage across TQs
   \end{itemize}
   \subsubsection{Lottery Scheduling}
   \begin{itemize}
+    \item interactive, preemptive
     \item Give out "lottery tickets" to processes. When a scheduling decision is needed, a ticket is chosen randomly among eligible tickets.
     \item In the long run, a process holding X\% of tickets can win X\% of the lottery held and use the resource X\% of the time.
-    \item Reponsive: newly created process can participate in next lottery
-    \item Good level of control: A process can be given lottery tickets to be distributed to its child process, an important process can be given more lottery tickets, each resource can have its own set of tickets (different proportion of usage per resource per task)
-    \item Simple implementation
+    \item \textbf{Reponsive}: newly created process can imediately participate in next lottery
+    \item \textbf{Good level of control}: A process can be given lottery tickets to be distributed to its child process, an important process can be given more lottery tickets, each resource can have its own set of tickets (different proportion of usage per resource per task)
+    \item \textbf{Simple} implementation
   \end{itemize}
 
   \section{Process Alternative -- Threads}
