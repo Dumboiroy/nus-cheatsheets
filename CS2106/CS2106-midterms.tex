@@ -245,7 +245,7 @@ outline/.style={draw=circle edge, thick}}
 
 
   \newcolumntype{a}{>{\hsize=1.5\hsize}X}
-  \newcolumntype{b}{>{\hsize=.25\hsize}X}
+  % \newcolumntype{b}{>{\hsize=.25\hsize}X}
 
   \setlength\columnsep{1.5pt}
   \setlength\columnseprule{0.1pt}
@@ -571,11 +571,12 @@ outline/.style={draw=circle edge, thick}}
   \end{itemize}
   \subsection{Shared-Memory}
   \begin{itemize}
-    \item General idea: Process $p_1$ creates a shared memory region $M$, process $p_2$ attaches $m$ to its own memory space. $p_1$ and $p_2$ can now commmunicate suing memory region $M$
+    \item General idea: Process $p_1$ creates a shared memory region (master process) $M$, process $p_2$ attaches $m$ to its own memory space. $p_1$ and $p_2$ can now commmunicate suing memory region $M$
     \item OS involved only in creating and attaching shared memory region
     \item \textbf{Advantages}: Efficient (only initial steps involves OS), Ease of use (information of any type or size can be written easily)
     \item \textbf{Disadvantages}: Synchronisation (shared resource -> need to synchronise access), Implementation is usually harder
-    \item In Unix: (1) create/locate shared memory region $M$, (2) Attach $M$ to process memory space, (3) Read/Write $M$, (4) Detach $M$ from memory space after use, (5) Destroy $M$ (only 1 process, can only destroy if $M$ is not attached)
+    \item In SysV: (1) create shared memory region $M$ \texttt{shm\_get()}, (2) Attach $M$ to process memory space \texttt{shmat()}, (3) Read/Write $M$, (4) Detach $M$ from memory space after use\texttt{shmdt()}, (5) Destroy $M$ \texttt{shmctl()} (any 1 process with permission (usually master), can only destroy if $M$ is not attached)
+    \item In POSIX: create shm\_open() -> size setup ftruncate() -> map/attach mmap() -> read/write -> unmap/detach munmap() -> close() -> unlink shm\_unlink()
   \end{itemize}
   \subsection{Message Passing}
   \begin{itemize}
@@ -685,9 +686,14 @@ flag[1] = false;
   \begin{itemize}
     \item Given $S_\text{initial} \geq 0$, where \#signal(S) = no of \texttt{signal()} executed, \#wait(S) = no of \texttt{wait()} completed
     \item \textbf{Invariant}: $S_\text{current} = S_\text{initial} +$ \#signal(S) $- $ \#wait(S)
+    \item Binary semaphore, $S = 0$ or $1$ known as mutex (mutual exclusion)\\
+    Deadlock still possible
   \end{itemize}
-  Binary semaphore, $S = 0$ or $1$ known as mutex (mutual exclusion)\\
-  Deadlock still possible 
+   
+  \begin{itemize}
+    \item \texttt{wait(S)}: if $S$ is (+)-ve, decrement. If $S$ is now (-)ve, go to sleep
+    \item \texttt{signal(S)}: increment S, if pre-increment $S$ negative, wakes up 1 sleeping process
+  \end{itemize}
   \subsection{Classical Synchronisation Problems}
   \begin{itemize}
     \item \textbf{Producer-Consumer}: produce only if buffer not full, consume only if buffer not empty
@@ -700,6 +706,26 @@ flag[1] = false;
     \item pthread\_mutex\_t: \texttt{pthread\_mutex\_lock}, \texttt{pthread\_mutex\_unlock}
     \item pthread\_cond\_t: \texttt{pthread\_cond\_wait}, \texttt{pthread\_cond\_signal}, \texttt{pthread\_cond\_broadcast}
   \end{itemize}
+
+  \subsubsection{Producer Consumer, Blocking Version}
+  % \begin{tabular}{l}
+    \includegraphics[width=0.9\linewidth]{busy-waiting}
+  % \end{tabular}
+  \begin{minipage}{\linewidth}
+    Initial Values: count = in = out = 0; mutex = S(1), notFull = S(K), notEmpty = S(0)
+  \end{minipage}
+  \subsubsection{Tanenbaum Solution}
+    \includegraphics[width=0.5\linewidth]{tanenbaum-1}
+    \includegraphics[width=0.5\linewidth]{tanenbaum-2}
+    \includegraphics[width=0.5\linewidth]{tanenbaum-3}
+    \includegraphics[width=0.5\linewidth]{tanenbaum-4}
+  \begin{tabular}{l}
+    \includegraphics[width=0.5\linewidth]{limited-eater}
+  \end{tabular}
+  \begin{tabularx}{0.45\columnwidth}{X}
+    Or we can have limited eaters
+  \end{tabularx}
+
   
 \end{multicols*}
 \end{document}
