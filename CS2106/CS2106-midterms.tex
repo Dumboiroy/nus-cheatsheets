@@ -298,11 +298,11 @@ outline/.style={draw=circle edge, thick}}
     \end{itemize}
   \end{itemize}
   \begin{tabular}{l}
-    \includegraphics[width=0.5\linewidth]{stack-memory}
+    \includegraphics[width=0.7\linewidth]{stack-memory}
   \end{tabular}
-  \begin{tabularx}{0.45\columnwidth}{X}
-    Note: stack grow upwards in this case
-  \end{tabularx}
+  \begin{minipage}{0.15\columnwidth}
+    Note: stack grows upwards in this case
+  \end{minipage}
   
   \subsection{Stack Memory}
   \begin{itemize}
@@ -313,8 +313,15 @@ outline/.style={draw=circle edge, thick}}
     \item \textbf{Saved Registers} = memory to temporarily hold GPR value during \textbf{register spilling}
   \end{itemize}
   \subsubsection{Function Call Convention}
-  E.g. On executing function call, \textbf{Caller}: Pass parameters with registers and/or stack, Save Return PC on stack; \textbf{Callee}: Save the old FP, SP, Allocate space for local vars on stack, adjust SP (Stack Pointer) \\
-  On returning from function call, \textbf{Callee}: Restore saved registers, FP, SP; \textbf{Caller}: Continues execution
+  \begin{itemize}
+  \item On \textbf{executing} function call: \textbf{Caller}: Pass funct parameters (in reg or stack), save necessary register values, Save Return PC on stack;\\ \textbf{Callee}: Save caller's registers, old FP, SP, Allocate space for local vars on stack, adjust SP (Stack Pointer) to point to callee's top of stack.
+  \item On \textbf{returning} from function call: \textbf{Callee}: Restore saved registers, FP, SP;\\ \textbf{Caller}: Continues execution 
+  \item Depending on implementation, some parts may not work.
+  \item \textbf{Didn't save FP} - \$ra will be overwritten, won't work.
+  \item \textbf{Gets values by using FP} - If passed again by reference, the saved FP only points back to second caller, not original caller. Won't work.
+  \item \textbf{MIPS Assem:} Executing: Caller - Save FP, copy SP to FP, save SP to Stack, Allocate space on stack, write to stack, call callee.
+  \item Callee - Save \$ra, reserve space on stack, write to stack, restore registers, deallocate space on stack, restore \$ra, return to caller..
+  \end{itemize}
   \subsection{Dynamically Allocated Memory}
   Using a separate \textbf{heap memory region}
   \subsection{Process Identification \& Process State}
@@ -353,7 +360,9 @@ outline/.style={draw=circle edge, thick}}
       \item \textbf{PCB/Process Table Entry} = entire execution context for a process
       \item \textbf{Process Table} =  maintains PCB for all processes, stored as one table
       \item Issues: Scalability, Efficiency
+      \item PC,FP,SP,GPRs|MEM Context info(location + info of stack frame in MEM)|PID,States|
     \end{itemize}
+    
   \end{tabularx}
   \begin{tabular}{l}
     \includegraphics[width=0.55\linewidth]{process-table}
@@ -391,13 +400,14 @@ outline/.style={draw=circle edge, thick}}
     \item \mintinline{C}{void exit(int status);} \texttt{status} is 0 for normal, else problematic. Does not return.
     \item \mintinline{C}{int wait(int *status);} returns the PID of terminated child, status stores exit status. Blocking.
   \end{itemize}
-  \textbf{Zombie process} = (1) parent terminates before child -- \texttt{init} becomes pseudo-parent, who will call \texttt{wait} on children (2) child process terminates but parent did not call \texttt{wait} -- child becomes zombie, can fill up processs table
+  \textbf{Zombie process} = (1) process exited, but parent still running. process is waiting on parent to call wait(), then status will be used and pcb can remove entry.\\
+  \textbf{Orphaned process} = (1) parent terminates before child -- \texttt{init} becomes pseudo-parent, who will call \texttt{wait} on children (2) child process terminates but parent did not call \texttt{wait} -- child becomes orphaned, can fill up processs table
   \section{Process Scheduling}
   3 categories of \textbf{processing environment}: (1) \textbf{Batch Processing}: no user, no interaction, no need to be responsive, (2) \textbf{Interactive}: with active user interacting, need to be responsive, consistent in response time, (3) \textbf{Real-time Processing}: deadline to meet, usually periodic process
   \subsection{Criteria for Scheduling Algorithms}
   \begin{itemize}
     \item \textbf{Fairness}: fair share of CPU time, no starvation
-    \item \textbf{Balance}: all parts of the computing system should be utilised
+    \item \textbf{Utilization}: all parts of CPU should be utilized
   \end{itemize}
   \subsection{Types of scheduling policies}
   \begin{itemize}
@@ -415,8 +425,10 @@ outline/.style={draw=circle edge, thick}}
   \subsection{Scheduling for Batch Processing}
   Criteria:
   \begin{itemize}
-    \item \textbf{Turnaround time}: Total time taken
-    \item \textbf{Throughput}: Rate of task completion
+    \item \textbf{Turnaround time}: Total time taken = finTime - arrTime
+    \item \textbf{Waiting time}: Ready but cannot get CPU = TurnaroundT - Ideal - arr
+    \item \textbf{Response time}: First CPU Time - Arrival Time
+    \item \textbf{Throughput}: Rate of task completion = nTasksFinished/time
     \item \textbf{CPU Utilisation}: \% of time when CPU is working on a task
   \end{itemize}
   \subsubsection{First-Come First-Served (FCFS)}
@@ -489,11 +501,10 @@ outline/.style={draw=circle edge, thick}}
       \item If a job gives up/blocks before it finishes the time slice -> priority retained
     \end{itemize}
     \item \textbf{Shortcomings}: 
-    \item (1) Starvation -- if there are too many interactive jobs, long-running jobs will starve (even if interactive after processing)
-    \item (2) gaming the scheduler by running for 99\% of time quantum, then relinquish the CPU
-    \item \textbf{Possible solutions}:
-    \item \textbf{(1) Priority boost}: after some time period S, move all jobs to the highest priority. Guaranteeing no starvation as highest priority -> RR, and the case when CPU-bound job has become interactive
-    \item \textbf{(2) Better accounting}: Accumulate total CPU usage across TQs
+    \item (1) Starvation -- processes in the lowest priority queue are in danger of being starved for CPU attention. (if process has long cpu requirements, can starve. if too many interactive Ps come in.)
+    \item \textbf{Possible Problems + solutions}:
+    \item \textbf{(1) Change of heart}: process with long cpu then i/o intensive phase. \textbf{Timely Boost}: after some time period S, move all jobs to the highest priority. Allows re-evaluation of processes as cpu or io bound, makeing sure change of heart processes are treated correctly.
+    \item \textbf{(2) Gaming the system}: processes gaming the scheduler by running for 99\% of time quantum, then relinquish the CPU. \textbf{Accounting Matters}: Accumulate total CPU usage across TQs
   \end{itemize}
   \subsubsection{Lottery Scheduling}
   \begin{itemize}
@@ -629,7 +640,8 @@ outline/.style={draw=circle edge, thick}}
   \section{Synchronization}
   \subsection{Race Condition}
   \begin{itemize}
-    \item When 2/more processes execute concurrently in interleaving fashion AND share a modifiable resource resulting in non-deterministic execution.
+    \item There is a Race Condition when:
+    \item 2/more processes execute concurrently in interleaving fashion AND share a modifiable resource resulting in non-deterministic execution.
     \item Solution: designate code segment with race condition as \textbf{critical section} where at any point in time only 1 process can execute.
   \end{itemize}
   \subsection{Critical Section}
@@ -651,6 +663,7 @@ outline/.style={draw=circle edge, thick}}
   \begin{itemize}
     \item Load the current content at \texttt{MemoryLocation} into \texttt{Register}, Stores a \texttt{1} into \texttt{MemoryLocation}
     \item Disadvantage: busy waiting -- wasteful use of processing power
+    \item To stop code before critical section: while (TestAndSet(Lock) == 1);
   \end{itemize}
   \subsubsection{Peterson's Algorithms}
   \begin{minted}{C}
