@@ -1,0 +1,214 @@
+\documentclass[10pt,landscape,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+%\usepackage{physics}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{listings}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand\codeblue[1]{\textcolor{blue}{\code{#1}}}
+
+\usepackage{lastpage}
+\usepackage{datetime}
+\yyyymmdddate
+\renewcommand{\dateseparator}{-}
+\let\bar\overline
+
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(0:2cm) circle (1.5cm)}
+
+\colorlet{circle edge}{myblue}
+\colorlet{circle area}{myblue!5}
+
+\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+outline/.style={draw=circle edge, thick}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%\everymath\expandafter{\the\everymath \color{myblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+
+\renewcommand{\baselinestretch}{.8}
+\pagestyle{empty}
+
+\global\mdfdefinestyle{header}{%
+  linecolor=gray,linewidth=1pt,%
+  leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
+}
+
+\newcommand{\header}{
+  \begin{mdframed}[style=header]
+    \footnotesize
+    \sffamily
+    ACC1701XA Midterms Cheatsheet v1.1 (\today)\\
+    by~Your Name,~page~\thepage~of~\pageref{LastPage}
+  \end{mdframed}
+}
+
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.,leftmargin=2.5mm}
+\setlist[itemize]{leftmargin=3mm}
+\setlist[enumerate]{leftmargin=3.5mm}
+\setlist{nosep}
+\usepackage{minted}
+
+\def\code#1{\texttt{#1}}
+
+\newenvironment{descitemize} % a mixture of description and itemize
+{\begin{description}[leftmargin=*,before=\let\makelabel\descitemlabel]}
+{\end{description}}
+
+\newcommand{\descitemlabel}[1]{%
+  \textbullet\ \textbf{#1}%
+}
+\makeatletter
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\color{myblue}\sffamily\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\rmfamily\bfseries}}
+
+\global\let\tikz@ensure@dollar@catcode=\relax
+
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+  \color#1{#2}#3%
+  \endgroup
+}
+
+\makeatother
+\setlength{\parindent}{0pt}
+
+\setminted{tabsize=2, breaklines}
+% Remove belowskip of minted
+\setlength\partopsep{-\topsep}
+
+\newcolumntype{a}{>{\hsize=1.5\hsize}X}
+% \newcolumntype{b}{>{\hsize=.25\hsize}X}
+
+\setlength\columnsep{1.5pt}
+\setlength\columnseprule{0.1pt}
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+\header
+
+\scriptsize
+\begin{multicols*}{4}
+  \raggedcolumns
+
+  \section{Heading 1}
+  \subsection{Subheading 1.1}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+    \item Point 3
+  \end{itemize}
+  \subsection{Subheading 1.2}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+  \end{itemize}
+
+  \section{Heading 2}
+  \subsection{Subheading 2.1}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+  \end{itemize}
+  \subsubsection{Subsubheading 2.1.1}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+  \end{itemize}
+
+  \section{Heading 3}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+    \item Point 3
+  \end{itemize}
+
+  \begin{tabular}{l}
+    \includegraphics[width=0.7\linewidth]{placeholder-image}
+  \end{tabular}
+  \begin{minipage}{0.15\columnwidth}
+    Placeholder note for image
+  \end{minipage}
+
+  \subsection{Heading 4}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+  \end{itemize}
+
+  \subsubsection{Heading 4.1}
+  \begin{itemize}
+    \item Point 1
+    \item Point 2
+  \end{itemize}
+
+  \begin{tabularx}{0.4\columnwidth}{X}
+    \begin{itemize}
+      \item Placeholder tabularx content
+    \end{itemize}
+  \end{tabularx}
+
+  \begin{minted}{C}
+  // Placeholder code block
+  int main() {
+    return 0;
+  }
+  \end{minted}
+
+\end{multicols*}
+\end{document}
