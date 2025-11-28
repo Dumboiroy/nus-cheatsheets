@@ -147,64 +147,44 @@ outline/.style={draw=circle edge, thick}}
   \raggedcolumns
 
   \section{Heading 1}
-  \subsection{Subheading 1.1}
-  \begin{itemize}
-    \item Point 1
-    \item Point 2
-    \item Point 3
-  \end{itemize}
-  \subsection{Subheading 1.2}
   \begin{itemize}
     \item Point 1
     \item Point 2
   \end{itemize}
 
-  \section{Heading 2}
-  \subsection{Subheading 2.1}
+  \subsection{Heading 1.1}
   \begin{itemize}
-    \item Point 1
-    \item Point 2
-  \end{itemize}
-  \subsubsection{Subsubheading 2.1.1}
-  \begin{itemize}
-    \item Point 1
-    \item Point 2
+    \item Point A
+    \item Point B
   \end{itemize}
 
-  \section{Heading 3}
+  \subsubsection{Heading 1.1.1}
   \begin{itemize}
-    \item Point 1
-    \item Point 2
-    \item Point 3
+    \item Point X
+    \item Point Y
   \end{itemize}
 
   \begin{tabular}{l}
-    \includegraphics[width=0.7\linewidth]{placeholder-image}
+    \includegraphics[width=0.5\linewidth]{placeholder-image}
   \end{tabular}
   \begin{minipage}{0.15\columnwidth}
     Placeholder note for image
   \end{minipage}
 
-  \subsection{Heading 4}
-  \begin{itemize}
-    \item Point 1
-    \item Point 2
-  \end{itemize}
-
-  \subsubsection{Heading 4.1}
-  \begin{itemize}
-    \item Point 1
-    \item Point 2
-  \end{itemize}
-
-  \begin{tabularx}{0.4\columnwidth}{X}
-    \begin{itemize}
-      \item Placeholder tabularx content
-    \end{itemize}
-  \end{tabularx}
+  \begin{minipage}{0.5\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      Left Column Text Placeholder abcdefg
+    \end{tabularx}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.5\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      Right Column Text Placeholder hijklmnop
+    \end{tabularx}
+  \end{minipage}
 
   \begin{minted}{C}
-  // Placeholder code block
+  // comment for codeblock
   int main() {
     return 0;
   }
