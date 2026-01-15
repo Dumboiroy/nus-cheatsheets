@@ -1,0 +1,392 @@
+\documentclass[10pt,landscape,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+%\usepackage{physics}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{listings}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand\codeblue[1]{\textcolor{blue}{\code{#1}}}
+
+\usepackage{lastpage}
+\usepackage{datetime}
+\yyyymmdddate
+\renewcommand{\dateseparator}{-}
+\let\bar\overline
+
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(0:2cm) circle (1.5cm)}
+
+\colorlet{circle edge}{myblue}
+\colorlet{circle area}{myblue!5}
+
+\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+outline/.style={draw=circle edge, thick}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%\everymath\expandafter{\the\everymath \color{myblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+
+\renewcommand{\baselinestretch}{.8}
+\pagestyle{empty}
+
+\global\mdfdefinestyle{header}{%
+  linecolor=gray,linewidth=1pt,%
+  leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
+}
+
+\newcommand{\header}{
+  \begin{mdframed}[style=header]
+    \footnotesize
+    \sffamily
+    ACC1701XA Midterms Cheatsheet v1.1 (\today)\\
+    by~Your Name,~page~\thepage~of~\pageref{LastPage}
+  \end{mdframed}
+}
+
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.,leftmargin=2.5mm}
+\setlist[itemize]{leftmargin=3mm}
+\setlist[enumerate]{leftmargin=3.5mm}
+\setlist{nosep}
+\usepackage{minted}
+
+\def\code#1{\texttt{#1}}
+
+\newenvironment{descitemize} % a mixture of description and itemize
+{\begin{description}[leftmargin=*,before=\let\makelabel\descitemlabel]}
+{\end{description}}
+
+\newcommand{\descitemlabel}[1]{%
+  \textbullet\ \textbf{#1}%
+}
+\makeatletter
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\color{myblue}\sffamily\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\rmfamily\bfseries}}
+
+\global\let\tikz@ensure@dollar@catcode=\relax
+
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+  \color#1{#2}#3%
+  \endgroup
+}
+
+\makeatother
+\setlength{\parindent}{0pt}
+
+\setminted{tabsize=2, breaklines}
+% Remove belowskip of minted
+\setlength\partopsep{-\topsep}
+
+\newcolumntype{a}{>{\hsize=1.5\hsize}X}
+% \newcolumntype{b}{>{\hsize=.25\hsize}X}
+
+\setlength\columnsep{1.5pt}
+\setlength\columnseprule{0.1pt}
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+% \header
+
+\scriptsize
+\begin{multicols*}{3}
+  \raggedcolumns
+  \section{Image Notes}
+  \subsection{SOLID Principles}
+  \includegraphics[width=\linewidth]{SOLID Principles}
+  \subsection{Design Patterns}
+  \includegraphics[width=\linewidth]{design-patterns}
+
+
+  \section{Quiz Mistake List}
+
+  \subsection{Principles}
+  \begin{itemize}
+    \item SRP $\neq$ 1 method 1 responsiblity. Violation E.g. 1 class adding to DB, sending email, and logging.
+    \item OCP - violated when change in behavior requires modifying an existing class instead of extending it.
+    Violation E.g. a lot of if-else statements to check for type before executing corresponding code.
+    \item Liskov Substitution Principle (LSP) - a subclass must work in place of the super class. 
+    No unexpected exceptions, pre/postcondtions, invariants, etc.
+    \item Separation of Concerns (SoC) - dont mix logic. Violation E.g. \texttt{AB.add(person); sout("Added person");}
+    \item Law of Demeter (LoD): usually violated with train wrecks. Violation E.g. \texttt{b.getSomething().getMoreStuff().doSomething();}
+    \item \textbf{SLAP}: Single Level of Abstraction Principle. Violation when many diff levels of indentation.
+  \end{itemize}
+
+  \subsection{Design Patterns}
+  \begin{itemize}
+    \item \textbf{MVC}: View: Displays data, interacts with the user, and pulls data from the model if necessary. | 
+    Controller: Detects UI events such as mouse clicks and button pushes, and takes follow up action. Updates/changes the model/view when necessary. | 
+    Model: Stores and maintains data. Updates the view if necessary.
+    \item \textbf{Singleton Pattern}: can reduce testability.
+    \item \textbf{Facade Pattern} increases the amount of code.
+  \end{itemize}
+
+  \subsection{Java}
+  \begin{itemize}
+    \item Constructors of superclasses can be called from subclass. But since constructors aren’t members, they are \textbf{not} inherited.
+    \item Polymorphism \textbf{allows} different behaviour if you feed subclasses of the argument class.
+    \item Every object has an interface and implementation
+    \item Packaging is an aspect of \textbf{encapsulation}
+    \item Once a class has 1 or more abstract methods, it is an abstract class.
+    \item Unchecked exceptions are not subject to Catch or Specify statements
+    \item 2 Classes of Exceptions: Checked \& Unchecked [Runtime exception, Error].
+    \item \textbf{JavaDocs} comments can be (1) documentation for developer-as-user and
+      for developer-as-maintainer.
+  \end{itemize}
+
+  \subsection{Class Diagrams}
+  \begin{itemize}
+    \item \textbf{+ \& -} are for visibility (not accessibility). 
+    [+] public [\#] protected [\textasciitilde] package-private(default) [-] private
+    \item \textbf{class-level notation}: underline in class diagram
+    \item \textbf{inheritence} Foo → Bar: Foo inherits from bar / Foo extends Bar. Arrow points to super.
+    \item Roles should appear at the end of the class that plays the role.
+    \item Assoociation Role $\neq$ Association Label
+    \item Bot[5] = 0..5
+    \item Class should only appear once in a diagram.
+    \item \textbf{Association Class}: If dotted line, then don't show variables making it up and vice versa.
+    \item \textbf{Association}: can be shown as attributes or association lines \textbf{but not both}.
+    \item Mandatory: Class Name, Associations, Multiplicities, 
+    \item Possibly Mandatory: Class-level members must be underlined, Attributes(if relevant), Methods(if relevant)
+    \item Optional: Visibility, Attribute/Return/Parameter Types, Navigability Arrows
+    \item \textbf{Composition $\blacklozenge$} (Whole$\blacklozenge-$Part, \textbf{solid} diamond) Implies (1) delete cascading (2) no cyclical links
+    \item \textbf{Aggregation $\Diamond$} (Container$\Diamond-$Item, \textbf{Hollow} diamond)
+    \item Observer --> Subject. Arrow points from observer to Subject - Observer depends on Subject.
+  \end{itemize}
+
+  \subsection{Object Diagrams}
+  \begin{itemize}
+    \item Labels must be underlined.
+    \item Navigability of associations (arrows in associations) in Object Diagrams are optional. 
+    Either direction works, just keep the association role consistent.
+  \end{itemize}
+
+  \subsection{Activity Diagrams}
+  \begin{itemize}
+    \item Optional: Activation Bars | Return Arrows | 
+    Object creation/deletion Markers | Message labels (names, parameters, return values)
+    \item Mandatory: Lifelines | Messages (solid arrows) | Top to Bottom
+    \item Object Names should not be underlined
+    \item Activation bar of method should not be broken in the middle (when it calls another method)
+    \item Incoming/Return arrows must be at the very top/bottom
+  \end{itemize}
+
+  \subsection{Conceptual Class Diagrams}
+  \begin{itemize}
+    \item Should be used in place of CDs for \textbf{domain modelling}.
+    \item \textbf{CCD}: Conceptual Class Diagrams (lighter version of class diagrams) capture class structures in the problem domain, 
+      AKA OO Domain Models (OODMs).
+    \item \textbf{CCDs} do not show methods or navigability.
+  \end{itemize}
+
+  \subsection{Sequence Diagrams}
+  \begin{itemize}
+    \item Loop segments can happen 0 times.
+  \end{itemize}
+
+  \subsection{Project Stuff: Requirements \& Code Requirements}
+  \begin{itemize}
+    \item \textbf{Brownfield vs Greenfield}: Brownfield harder to modify, Greenfield harder to design. 
+      Overall brownfield slightly harder.
+    \item \textbf{User stories} are considered light-weight. Recc: Limit to 1 sentence.
+    \item \textbf{Magic literals} Try to avoid, but loop counters or simple indexing is fine (not considered magic).
+    \item \textbf{KISS}: Keep it simple, stupid - Clever solution only if the 
+    additional complexity is justifyable.
+    \item Bug Fixing is not refactoring
+    \item \textbf{Asserts}: Java assert $\neq$ JUnit(or other) assert. 
+    Java asserts are disabled by default at runtime, and are mainly used for
+    internal consistency checks.
+    \item \textbf{Abstract -> Interface}: In Java, abstract classes don't need to implement interface methods. Only concrete classes do.
+  \end{itemize}
+
+  \subsection{Logging}
+  \begin{itemize}
+    \item Logs are typically written to a log file but it is also possible to log information in other ways 
+    e.g. into a database or a remote server.
+    \item Java has its own default logging mechanism
+  \end{itemize}
+
+  \subsection{Use cases, More Project Stuff \& Abstraction}
+  \begin{itemize}
+    \item \textbf{Use cases} have no strict requirement to have unique IDs, but might be helpful.
+    \item \textbf{Use case benefits}: Help uncover functional requirements, provide common understanding 
+    between stakeholders, Guide system design and implementation, Support testing
+    \item Textbook recommends to \textbf{mix the bottom-up and top-down} approaches
+    \item \textbf{Data abstraction}: abstracting away the lower level data items and thinking in terms of 
+    bigger entities.
+    \item Types of \textbf{abstraction}: Procedural, Data, Control
+    \item \textbf{Coupling Cases}: A has access to B's internal structure, A and B depend on the same global variable
+    A receives an object of B as a parameter or return value, A inherits from B.
+    \item \textbf{Defensive} programming can result in slower code.
+  \end{itemize}
+
+  \subsection{Testing}
+  \subsubsection{Equivalence Partitioning (EP)}
+  \begin{itemize}
+    \item Rememember that in Java, \texttt{isPrime(int i);} non-ints aren't valid, 
+    so "all nonints" is \textbf{not} a valid EP.
+    \item EPs cannot give a \textbf{Neumann-complete} test suite.
+    \item EP for \textbf{Day of Month}: [-MAX..0][1..28][29][29][30][31][32..MAX]
+    \item (1) both invalid ends (2) 1-28 in all (3) 29 only leap feb (4) 30 OR 31 days in a month
+  \end{itemize}
+  
+  \subsubsection{Types}
+  \begin{itemize}
+    \item unit - 1 item
+    \item integration - work together
+    \item regression - retesting to see if regress
+    \item system - whole system meets specification?
+    \item acceptance - done by end-users to see if meets req.
+    \item \textbf{Alpha Testing}: performed by the users, under controlled conditions set by the software development team.
+    \item \textbf{Beta Testing}: performed by a selected subset of target users in their natural work setting.
+  \end{itemize}
+  
+  \subsubsection{Approaches}
+  \begin{itemize}
+    \item \textbf{Scripted testing}: perform testing based on a pre-defined set of test cases.
+    \item \textbf{Exploratory testing}: design test cases on-the-fly.
+    \item \textbf{Test-Driven Development (TDD)}: evolve functionality and tests in small increments, writing the test before the functional code.
+  \end{itemize}
+
+  \subsubsection{Test Coverage}
+  \begin{itemize}
+    \item \textbf{Function/method coverage}: based on functions executed, e.g., testing 90 out of 100 functions.
+    \item \textbf{Statement coverage}: based on the number of lines of code executed.
+    \item \textbf{Decision/branch coverage}: based on decision points exercised, e.g., an \texttt{if} statement evaluated to both true and false in separate test cases.
+    \item \textbf{Condition coverage}: based on boolean sub-expressions, each evaluated to both true and false with different test cases.
+    \item \textbf{Path coverage}: measures coverage based on possible execution paths through the code.
+    \item \textbf{Entry/exit coverage}: measures coverage based on possible calls to and exits from operations in the SUT.
+  \end{itemize}
+
+  \subsubsection{Other Notes}
+  \begin{itemize}
+    \item \textbf{Dogfooding} - Creators using their own product to experience how end users experience it.
+    \item \textbf{Unit Testing} isn't just about stubbing, 
+    \textbf{Integration Testing} the same as unit testing without stubs.
+    \item \textbf{Coverage Analysis} can be useful in improving the quality of testing (not individual test cases).
+    \item \textbf{SUT with multiple inputs}: testing all combinations is effective but possible inefficient.
+    \item \textbf{\_\_\_ Box Testing} - Knowledge of code: Black box < Grey box < White/Glass/Clear box
+    \item \textbf{Path coverage} is much harder to achieve than statement coverage. PC is all possible paths, SC is just code lines.
+    \item \textbf{Path coverage} \& Neuman-complete PC - covering all paths is impossile irl since there are loops that may have
+    infinite paths. in real life, they check: 0, 1, many, and boundaries.
+    IRL tools like Jacoco count branch \& statement coverage but do not attempt path.
+  \end{itemize}
+  \subsubsection{Efficiency vs Effectiveness}
+  \begin{minipage}{0.49\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      \textbf{Efficiency} - How well a system or process achieves its intended goal (doing the right thing)
+    \end{tabularx}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      \textbf{Effectiveness} - How well a system or process uses resources while achieving its goal (Doing things well).
+    \end{tabularx}
+  \end{minipage}
+  
+
+  \subsection{Architecture}
+  \begin{itemize}
+    \item Canvas uses Client-server Architecture style. Client, Server, Database, Communication(Requests)
+  \end{itemize}
+
+  \subsection{Random stuff}
+  \begin{itemize}
+    \item When developing a software to compete with Facebook(or im guessing other large large software), 
+    an iterative approach is more suitable than a sequential approach.
+  \end{itemize}
+
+  \subsection{Straight up copy paste}
+  \subsubsection{Design Patterns in Main}
+  \begin{tabular}{l}
+    \includegraphics[width=0.7\linewidth]{main-patterns}
+  \end{tabular}
+  \begin{minipage}{0.15\columnwidth}
+    main uses Singleton, Command, Observer. 
+  \end{minipage}
+  \begin{itemize}
+    \item Multiple classes are exposed to the outside, which means it is unlikely the Facade pattern is used.
+  \end{itemize}
+
+  \section{Diagram Examples}
+  \subsection{Use Case Diagram}
+  \includegraphics[width=0.5\linewidth]{UCD}
+  \subsection{Activity Diagram}
+  \includegraphics[width=\linewidth]{AD}
+  \subsection{Conceptual Class Diagram}
+  \includegraphics[width=\linewidth]{CCD}
+  \subsection{Class Diagram p1}
+  \includegraphics[width=\linewidth]{CD-1}
+  \subsection{Class Diagram p2}
+  \includegraphics[width=\linewidth]{CD-2}
+  \subsection{Object Diagram}
+  \includegraphics[width=\linewidth]{OD}
+  \subsection{Sequence Diagram}
+  \includegraphics[width=\linewidth]{SD}
+  \subsection{Notes}
+  \includegraphics[width=0.5\linewidth]{N&C}
+  
+  
+
+
+
+
+
+
+\end{multicols*}
+\end{document}

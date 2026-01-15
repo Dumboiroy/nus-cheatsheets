@@ -1,0 +1,639 @@
+\documentclass[10pt,landscape,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+%\usepackage{physics}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{listings}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand\codeblue[1]{\textcolor{blue}{\code{#1}}}
+
+\usepackage{lastpage}
+\usepackage{datetime}
+\yyyymmdddate
+\renewcommand{\dateseparator}{-}
+\let\bar\overline
+
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(0:2cm) circle (1.5cm)}
+
+\colorlet{circle edge}{myblue}
+\colorlet{circle area}{myblue!5}
+
+\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+outline/.style={draw=circle edge, thick}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%\everymath\expandafter{\the\everymath \color{myblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+
+\renewcommand{\baselinestretch}{.8}
+\pagestyle{empty}
+
+\global\mdfdefinestyle{header}{%
+  linecolor=gray,linewidth=1pt,%
+  leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
+}
+
+\newcommand{\header}{
+  \begin{mdframed}[style=header]
+    \footnotesize
+    \sffamily
+    ACC1701XA Midterms Cheatsheet v1.1 (\today)\\
+    by~Your Name,~page~\thepage~of~\pageref{LastPage}
+  \end{mdframed}
+}
+
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.,leftmargin=2.5mm}
+\setlist[itemize]{leftmargin=3mm}
+\setlist[enumerate]{leftmargin=3.5mm}
+\setlist{nosep}
+\usepackage{minted}
+
+\def\code#1{\texttt{#1}}
+
+\newenvironment{descitemize} % a mixture of description and itemize
+{\begin{description}[leftmargin=*,before=\let\makelabel\descitemlabel]}
+{\end{description}}
+
+\newcommand{\descitemlabel}[1]{%
+  \textbullet\ \textbf{#1}%
+}
+\makeatletter
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\color{myblue}\sffamily\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\rmfamily\bfseries}}
+
+\global\let\tikz@ensure@dollar@catcode=\relax
+
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+  \color#1{#2}#3%
+  \endgroup
+}
+
+\makeatother
+\setlength{\parindent}{0pt}
+
+\setminted{tabsize=2, breaklines}
+% Remove belowskip of minted
+\setlength\partopsep{-\topsep}
+
+\newcolumntype{a}{>{\hsize=1.5\hsize}X}
+% \newcolumntype{b}{>{\hsize=.25\hsize}X}
+
+\setlength\columnsep{1.5pt}
+\setlength\columnseprule{0.1pt}
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+% \header
+
+\scriptsize
+\begin{multicols*}{4}
+  \raggedcolumns
+
+  \section{Notes to myself}
+  \begin{enumerate}
+    \item Read whole question first. A lot of info is useless. 
+    \item For multiple part questions, highlight the key point they are asking for.
+    \item Before calculating, write down all equations being used.
+  \end{enumerate}
+
+  \section{Accounting in Business \& FS Overview}
+  \subsection{International Accounting Standards Board (IASB)}
+  \subsubsection{}
+  \begin{itemize}
+    \item Qualitative Characteristics: Relevance, Faithful Representation,
+    \item Comparability, Veriiability, Timeliness, Understandability
+    \item IASB -> IFRS -> FRS (Singapore)
+    \item Overall ethical conduct - Independent accountants represent the public interest
+  \end{itemize}
+  \subsubsection{Auditors \& External Audit}
+  \begin{itemize}
+    \item Independent certified public accountant (CPA) perform external audits.
+    \item Provides public with assurance that FSs are not misleading.
+  \end{itemize}
+  \subsection{The Accounting Equation}
+  \begin{itemize}
+    \item Assets = Liabilities + Equity
+    \item = Liabilities + Share Capital + Retained Earnings
+    \item = Liabilities + Share Capital + Revenue - Expenses - Dividends
+  \end{itemize}
+  \subsubsection{Asset}
+  \begin{itemize}
+    \item A \textbf{present resource}
+    \item Due to a \textbf{past event}
+    \item That will \textbf{result in future benefits}
+  \end{itemize}
+  \subsubsection{Liabilitity}
+  \begin{itemize}
+    \item An \textbf{obligation}
+    \item Due to a \textbf{past event}
+    \item That will \textbf{result in future outflow} of resources upon \textbf{settlement}
+    \item Accounts: Unearned Revenue, Accounts Payable
+  \end{itemize}
+  \subsubsection{Equity}
+  \begin{itemize}
+    \item Owner's claim on the residual interest after deducting all Liabilities
+    \item net assets (total assets - total liabilities)
+  \end{itemize}
+  \subsubsection{Claims}
+  \begin{itemize}
+    \item Share Capital / Capital Stock: contributed by owners
+    \item Retained earnings: equity earned by company
+  \end{itemize}
+  \subsection{IASB Definitions}
+  \begin{itemize}
+    \item Income: inflow/enhancement of assets (OR decrease in liabilities -> equity up). During accounting period, not by contributions from owners.
+    \item Expense: outflow/depletions of assets (OR incurrance of liability -> equity down). During accouting period.
+    \item Capital Maintenance Adjustments: Revaulation of assets/liabilities. \textbf{not included in income statement}. Treated as Other Comprehensive Income (OCI)
+  \end{itemize}
+  \subsection{The Financial Statements}
+  \subsubsection{Statement of Financial Position AKA Balance Sheet (SFP/BS)}
+  \begin{itemize}
+    \item A = L + E
+    \item A snapshot of company's economic resources and obligations
+    \item Limitation: Assets recorded at cost, not market value. Usually book v < market v
+  \end{itemize}
+  \subsubsection{Statement of Comprehensive Income (SCI)}
+  \begin{itemize}
+    \item \textbf{Net Income (NI)} = Rev - Exp
+    \item NI + OCI = Comprehensive Income 
+    \item Revenues: Operation earnings, Net Income: NI = Rev - Exp, Other Comprehensive Income: investments etc.
+    \item Shows economic performance over time.
+    \item Either Income statement \& SCI together or not. OCI can be seperate (IAS1)
+  \end{itemize}
+  \subsubsection{Statement of Changes in Equity (SCE)}
+  \begin{itemize}
+    \item How the ownership interest in a company has changed over a specific period
+    \item Beginning Equity + $\triangle \text{Equity}$ = End Equity, 
+    where $\triangle \text{Equity}$ = $\triangle \text{Capital}$ + Net Income - Dividends + OCI
+  \end{itemize}
+  \subsubsection{Statement of Cash Flows (SCF)}
+  \begin{itemize}
+    \item How cash is generated and used by the company
+    \item CFO + CFI + CFF (operating, Investing, financing)
+    \item CFO: revenue, etc. CFI: buying equipment, land, etc. CFF: investors investing, paying dividends etc.
+  \end{itemize}
+  \subsection{Relationships among the 4 FSs}
+  \begin{tabular}{l}
+    \includegraphics[width=0.95\linewidth]{relationship-of-fs}
+  \end{tabular}
+  \subsection{Fundamental Concepts \& Assumptions of Accounting}
+  \begin{itemize}
+    \item Separate entity concept: Activity of a bz is separate from its owners
+    \item Time-period assumption: bz's activities can be divided into time periods (monthly,quarterly,etc)
+    \item Assumption of arm's-length transactions
+    \item Cost Principle
+    \item Fair value Principle
+    \item Monetary measurement concept
+    \item Going concern assumption
+  \end{itemize}
+  \section{Mechanics of Accounting}
+  \subsection{Credit/Debit}
+  \begin{itemize}
+    \item Depends on Type of account.
+    \item Normal Debit/Normal Credit
+  \end{itemize}
+  \begin{tabular}{l}
+    \includegraphics[width=0.6\linewidth]{dr-cr}
+  \end{tabular}
+  \begin{minipage}{0.3\columnwidth}
+    depends on where the account lies on the AE.
+  \end{minipage}
+  
+
+  % legit cba, just gna put in formulas
+
+  \section{The Accounting Equation}
+  \subsection{Main equation}
+  \begin{itemize}
+    \item Assets = Liabilities + Equity
+    \item = Liabilities + Share Capital + Retained Earnings
+    \item = Liabilities + Share Capital + Revenue - Expenses - Dividends
+  \end{itemize}
+  \subsection{Assets}
+  \begin{itemize}
+    \item Current and Non-current
+    \item Current: Cash \& Cash eq, Accounts Receivable, Inventory, Prepaid expenses
+    \item Non-current: PPE, Intangible assets: trademarks, copyrights, goodwill, 
+    Long-term investments: Bonds
+  \end{itemize}
+
+  \section{AJE (Adjusting Entries) \& effect on Accounting Equation}
+
+  \subsection{Cash vs Accrual}
+  \begin{itemize}
+    \item Cash: add up cash inflows and outflows. 
+    Revenue recorded as soon as cash comes in, expense recorded as soon as cash goes out. 
+    None of: AR, AP, UR, Prepaid Expenses, Accumulated Depreciation  
+    \item Accrual: Recognizes event when main economic impact occurs. 
+    Revenues recorded when earned, expenses recorded when incurred.
+  \end{itemize}
+
+  \subsection{Calculating Effects on AE}
+  \begin{itemize}
+    \item Supplies worth \$500 was purchased but was not included in assets 
+    because it got debited to Supplies Expense even though they were 
+    not consumed during the year.\\
+    Original | Corrected | effect on accounts | effect on AE
+  \end{itemize}
+  \begin{tabular}{l}
+    \includegraphics[width=0.95\linewidth]{AJE-effect}
+  \end{tabular}
+
+  \subsection{Fast way to calculate effect on AE}
+  \begin{itemize}
+    \item If need \textbf{fast}: (1) \textbf{Focus on variable (A/L/E or others)}
+    (2) Correcting Change to Accounts
+    (3) effect on variable (A/L/E or NI, Cur Asset, or others.)
+  \end{itemize}
+
+  \subsection{Careful of Contra Accounts}
+  \begin{itemize}
+    \item \textbf{be careful of contra accounts}: category[Contra account(account)]
+    \item xAssets[Accumulated Depreciation (PPE), Loss Allowance(AR), Discount on NR(NR)]
+    \item xRevenues[Sales returns, Sales Discounts(Sales Revenue)]
+    \item xEquity[Treasury Stock(Shareholders Equity), Owner's Draws(Owner's Capital)]
+    \item xLiability[Discount on bonds payable(bonds payable)]
+  \end{itemize}
+
+
+  
+  \section{Notes Receivables}
+   A promissory note to pay a specified amount of money, usually with interest, either
+   on demand or at a definite future date.
+    e.g. 800k, 4\%, 9 month note on July 1st 2023. \\
+    (1) at \textbf{EOY 2023}: Accrued $\frac{6\text{(july-dec2023)}}{12} \times 4\% \times 800k$ worth of Interest Revenue. 
+    -> Dr Interest Receivable, Cr Interest Revenue.\\ 
+    (2) at March 31st (\textbf{due date}): Dr Cash 800k + full interest (24k), Cr Interest Receivable 16k, 
+    Cr Interest Revenue $\frac{3\text{(jan-mar2024)}}{12} \times 4\% \times 800k$,
+    Cr 800k Accounts Receivable.
+
+  
+  \section{Estimated Credit Loss (ECL) \& Loss Allowance (LA)}
+  \begin{itemize}
+    \item $ECL = LA_{target} - LA{current}$ where $LA_{target}$ depends on analysis
+    \item \textbf{Individual Assessment}: n\% chance that \$x owed by Company A will be uncollectible: 
+      $n\% \times \$x = ECL$ (for that company)
+    \item \textbf{Group Assesment}: Usually aging analysis: $SUM(\$Amt \times Est.\% Uncollectible)$, 
+    \item where each class(current, 1-30 days past due, etc) has some $\$Amt$ collectible and some $Est. \% Uncollectible$.
+  \end{itemize}
+
+
+  \section{Inventory \& COGS}
+  \subsection{Inventory}
+  \begin{itemize}
+    \item NRV > Cost : inventory recorded at cost
+    \item NRV < Cost : inventory recorded at NRV
+  \end{itemize}
+
+
+  \subsection{COGS} 
+    \begin{itemize}
+    \item \textbf{COGS - Cost of Goods Sold}: There's no such thing as inventory expense. 
+      [-asset(cash or credit) and +asset(inventory).] You only record it as an expense when 
+      you sell the inventory (COGS).
+    \item $\text{COGS} = \text{Beg Inv} + \text{Purch'd Inv} - \text{End Inv}$
+    \end{itemize}
+  
+
+  \subsection{Formulas}
+    \begin{itemize}
+      \item Weighted Average Cost = total cost/total n
+      \item Specific Identification Cost = n*cost per purchasing transaction
+    \end{itemize}
+
+  \section{Current Liabilities}
+    \subsection{Warrenty}
+      \begin{itemize}
+        \item During expected warrenty expense calculation: Dr Warrenty Exp, Cr Est. Warrenty Liability
+        \item When warrenty claimed: Dr Est. Warrenty Liability, Cr Cash/Inventory for repairs
+      \end{itemize}
+
+	\section{PPE \& Intangibles}
+  \begin{itemize}
+  \item ...
+  \end{itemize}
+
+  \subsection{Depreciation Methods}
+  \subsubsection{Why Depreciation?}
+  Pressure to lower taxable income v.s. Pressure to inflate reported profitability
+  \textbf{Remember to calculate partial year if needed.}
+  \subsubsection{Straight-line}
+  \begin{itemize}
+  \item Equal depreciation each year
+  \item $DE = \frac{\text{Cost} - RV}{\text{Useful years}}$
+  \end{itemize}
+  \subsubsection{Calculating Depreciation}
+  \begin{itemize}
+    \item Acquisition cost = Invoice + Other add-ons + Sales Tax
+    \item Annual depreciation expense under straight line = (Acquisition cost – salvage value) / estimated life
+  \end{itemize}
+
+  \subsubsection{Units-of-production}
+  \begin{itemize}
+  \item Varying amounts of depreciation depending on production that year
+  \item $DE = \frac{\text{Cost} - RV}{\text{Life in units of production}} \times \text{Actual units produced that year}$
+  \end{itemize}
+
+  \subsubsection{Declining-balance/Accelerated Depreciation}
+  \begin{itemize}
+  \item More depreciation in earlier stage (2x, 1.5x)
+  \item (1) Useful life is 4 years -> straight line rate = $\frac{100\%}{4} = 25\$$
+  \item (2) Assume double declining -> DDB rate = $2\times25\% = 50 \%$
+  \item (3) Assume net book value of asset is \$10,000 -> depreciation expense = \$10k x 50\% = \$5,000 (for that period)
+  \item \textbf{Residual value} is \textbf{ignored}.
+  \item Once asset is depreciated below RV: $\text{Depreciation Expense} = NBV_{previous} - RV$
+  \end{itemize}
+  \includegraphics[width=0.95\linewidth]{Depreciation Formulas}
+
+  \subsection{Capitalize v.s. Expense}
+  \begin{itemize}
+    \item R\&D: Expensed. Dev cost after tech feasiility established can be capitalized. (IFRS) 
+    (GAAP: all r\&d are expensed in the period incurred).
+    \item Repairs:
+    \item Expense: Maintainence, Does not increase productivity, does not extend life beyond original estimate, Recurring in nature.
+    \item Capitalize: Overhauls or partial replacements, not frequent, increases efficiency, Extends useful life beyong estimate, Involves a lot of money
+    \item NBV before capitalization = Original Acquisition cost – Accumulated Depr
+    \item NBV after capitalization = Revised asset value – salvage value 
+    \item = (Beg Carrying amount + capitalized exp) – salvage
+  \end{itemize}
+
+  \subsection{Disposal of PPE}
+  \begin{itemize}
+    \item Go through slides again (Slide 47 + post lecture stuff)
+    \item PPE Truck + (Gain) = Disposal Value + Accumulated Depreciation + (Loss)
+  \end{itemize}
+
+  \subsection{Intagible Assets}
+  \begin{itemize}
+    \item Definite vs indefinite life
+    \item Amortisation expense
+    \item Accumulated Amortization (new xAsset)
+    \item Market Cap - Net Book value = Goodwill (2638B - 51B for apple lol)
+  \end{itemize}
+
+  \subsection{new formulas}
+  \begin{itemize}
+    \item $\text{Fixed Assets Turnover} = \frac{Net Sales}{Avg Fixed Assets}$
+    \item how efficient a company is in using its fixed assets to generate sales
+    \item $\text{Total Assets Turnover} = \frac{Net Sales}{Avg Total Assets}$
+    \item ability in using its total assets as a whole to generate sales
+  \end{itemize}
+
+  \subsection{slide 62 for summary}
+
+  \section{Statement of Cash Flows}
+  \subsection{Cash Flow from Operating Activities (CFO)}
+  \begin{itemize}
+    \item NI = Net Income, $\delta$ CA = $\delta$ Current Assets, $\delta$ CL = $\delta$ Current Liabilities
+    \item CFO = NI + Non-cash expenses + Losses - Gains - $\delta$ CA + $\delta$ CL
+  \end{itemize}
+
+  \subsection{Cash Flow from Investing Activities (CFI)}
+  \begin{itemize}
+    \item Purchase/Sales of PPE, Purchase/Sale of Investments
+    \item CFI = Cash Inflows from Investing - Cash Outflows from Investing
+  \end{itemize}
+
+  \subsection{Cash Flow from Financing Activities (CFF)}
+  \begin{itemize}
+    \item Issuance/Repayment of debt, Issuance/Repurchase of Shares, Dividends Paid
+    \item CFF = Cash Inflows from Financing - Cash Outflows from Financing
+  \end{itemize}
+
+  \subsection{Net Change in Cash}
+  \begin{itemize}
+    \item Net Change in Cash = CFO + CFI + CFF
+  \end{itemize}
+    
+  \subsection{Ending Cash}
+  \begin{itemize}
+    \item Net Change in Cash = CFO + CFI + CFF
+  \end{itemize}
+
+  \subsection{Statement Structure}
+  
+
+
+  \section{Uncategorized}
+    \subsection{Other}
+    \begin{itemize}
+      \item \textbf{Retained Earnings} \\ RE = Rev - Exp - Div + \textbf{Previous RE}  
+      \item \textbf{Normal Debit or credit?}\\
+      Equity = Rev - Exp - Div.
+      Revenue is normal credit, Expenses are normal debit, Dividends are normal debit.
+      
+      \item \textbf{Expenses}\\
+      Operating expenses: Rent, Utilities, Salaries, Advertising exp, Fees, \textbf{Expected Credit Loss (ECL)}|
+      Non-operating expenses: Interest expense on loans, Taxes expense.|
+      \textbf{COGS} (direct cost of producing/obtaining goods sold)
+      \item \textbf{Revenue}\\
+      Operating revenue: Service/Sales revenue, Rental income (real estate company), Recurring revenue (SaaS company)\\
+      Non-operating revenue: Dividend revenue, Gain on sale of assets, ROyalty income, Forex gains, etc.
+      \item $\triangle \textbf{NI} \text{(Net Income)}$ = Revenues (all) - Expenses (all). Remember to sum startNI and $\triangle \textbf{NI}$ for endingNI.
+      \item $\triangle \textbf{AR} \text{(Accounts Receivable)}$ = Cash Collected - Credit Sales
+      \item \textbf{Current Assets}\\
+      (1) Current Assets - Loss Allowance (Contra-asset account)
+      (2) For all entries, calculate change to Asset.
+      Note that Liabilities are not assets, so if you take on liabilities for assets your assets still go up.
+      \item \textbf{Cash Collected from customers}\\
+      (finalAR-totalAR) + (final Unearned Revenue - startingUR)
+      \item \textbf{Journal Entries for Recovering write-offs}: If we recovered \$828 from previously written off accounts, its:
+      [Dr AR Cr LA], THEN [Cr AR Dr Cash]. 2 steps, same with:
+      \item \textbf{Journal Entries for Selling Goods} [Dr Cash Cr Revenue] then [Dr COGS Cr Inventory]
+      \item $\triangle \textbf{Equity}$ = $\triangle \textbf{Share Capital}$ + Net Income - Dividends (Inferred from SCE)
+        = $\triangle \textbf{Assets}$ - $\triangle \textbf{Liability}$ Depending on the question, this must be shifted around.
+      \item \textbf{Collect on account}: no longer AR. means collected in cash or equivalents.
+      \item n-day note issued on day x of some month: $n - \text{days left in month} - \text{days in next month} - ... = \text{day of payment}$
+    \end{itemize}
+
+    \section{Other Accounting Equations}
+      \subsection{Return on Assets (ROA)}
+      Returns on assets is in ratio form as income divided by assets invested.
+      (income/assets invested)
+      \[
+      \text{ROA} = \frac{\text{Net Profit}}{\text{Average total assets}}
+      \]
+      Where Average total assets = (Start Assets + End Assets )/ 2\\
+      Note: Net profit = net income
+
+      \subsection{Debt Ratio}
+      Evaluate \textbf{debt risk}. Ability to pay its liabilities using debt ratio. 
+      (liabilities/assets), lower = less risk.
+      \[
+      \text{Debt Ratio} = \frac{\text{Total Liabilities}}{\text{Total Assets}}
+      \]
+
+      \subsection{Profit Margin}
+      r/s between sales and net profit. Higher = more profit per \$ sale
+      \[
+      \text{Profit Margin} = \frac{\text{Net Profit}}{\text{Net Sales}}
+      \]
+      Note: Net Sales = Sales Revenue\\
+      A high profit margin is an indicator of future growth.
+      
+      \subsection{Current Ratio}
+      The current ratio of a company gives us a good indication of the company’s 
+      ability to pay its debts when they fall due. The current ratio is 
+      calculated by dividing current assets by current liabilities. 
+      \[
+      \text{Current Ratio} = \frac{\text { Current Assets }}{\text { Current 
+      Liabilities }}
+      \]
+
+      \subsection{Days' Sales Uncollected}
+      how much time is likely to pass before we receive cash receipts from credit sales. 
+      \[
+      \text{Days' Sales Uncollected} = \frac{\text{Accounts Receivable}}{\text{Net Sales}} \times 365
+      \]
+      
+      \subsection{Accounts Receivable Turnover Ratio}
+      Measures how often are receivables collected - how many times a year the company 
+      converts its average accounts receivables into cash. 
+      \[
+      \text{Receivable Turnover Ratio} =\frac{\text { Net Sales Revenue }}{\text 
+      { Average Net Receivables}}
+      \]
+      high ratio = faster collection of receivables -> shorter operating cycle ->
+      more cash available for running business. Low RTR could indicate that company
+      is allowing too much time for customers to pay.
+      When calculating a ratio and have income statement item in the numerator and 
+      a balance sheet item in denominator, must calculate the avg balance sheet amount. 
+      The quickest way is to take (beginning + ending balance)/2.
+
+      If a company offers terms of net 30 on its sales, we should expect turnover of 12.
+      This is because over the entire year, the average accounts receivable should be 
+      equivalent to roughly 30 days of sales. Hence, Total sales/Avg AR should be 12.
+      >12 -> collect >12x its Avg AR per year -> they collect fast -> more cash for 
+      running business.
+    
+    \subsection{Avg Collection Period/Days to Collect}
+      Measures how many days on average it takes the company to collect its accounts receivables.
+      \[
+      \text{Avg Collection Period} =\frac{ 365 }{\text 
+      { Accounts Receivable Turnover}}
+      \]
+      Should be as close to or lower than its offer terms. i.e. net 30 then try to be <=30
+
+    \subsection{Inventory Turnover}
+    
+    \[
+    \text{Inventory Turnover}= \frac{\text{Cost of Goods Sold}}{\text{Average Inventory}}
+    \]
+      
+      How many times a company sells its entire inventory during a period. If inventory varies a lot, average amounts 
+      can be computed from interim periods. 
+      
+      Applied to analyze short-term liquidity and management of inventory. High ratio = more short-term liquidity.
+      Low ratio suggest inefficient use of assets, such as company holding more inventory than it needs. High ratio 
+      may suggest that inventory is too low. No simple rule other than high ratio is prefered PROVIDED inventory is adequate to
+      meet demand. 
+    
+    \subsection{Days' Sales in Inventory}
+    
+    \[
+    \text{Days' Sales in Inventory} = \frac{\text{Ending Inventory}}{\text{Cost of Goods Sold}} \times 
+    365
+    \]
+    
+    To better interpret inventory turnover, many users measure the adequacy of inventory to meet sales 
+    demand. Days’ sales in inventory, also called days’ stock on hand, is a ratio that reveals how 
+    much inventory is available in terms of the number of days’ sales. It can be interpreted as the 
+    number of days one can sell from inventory if no new items are purchased. This ratio is useful in 
+    evaluating liquidity of inventory.
+
+    To interpret turnover, we can use this metric to measure how adequate the inventory is to meet sales demand.
+    It reveals how much inventory is available in terms of the number of days' sales. Used to evaluate liquidity of inventory.
+    Higher = more liquid inventory.
+    
+    \subsection{Cash Flow on Total Assets}
+    
+      The Cash Flow on Total Assets ratio is used with profit-based ratios to help assess a company’s performance.  It is calculated as Net cash 
+      flow from operating activities divided by Average total assets.
+      \[
+      \text{Cash Flow on Total Assets} = \frac{\text{Net Cash from Operating Activities}}{\text{Average Total Assets}}
+      \]
+      This ratio reflects actual cash flows and is not affected by accounting profit recognition and measurement. It can help business decision 
+      makers estimate the amount and timing of cash flows when planning and analyzing operating activities.
+
+\section{Statements}
+\begin{itemize}
+  \item In order of steps:
+  \item Income Statement
+\end{itemize}
+\includegraphics[width=0.95\linewidth]{IS}
+
+\begin{itemize}
+  \item Statement of Changes in Equity
+\end{itemize}
+\includegraphics[width=0.95\linewidth]{SCE}
+
+\begin{itemize}
+  \item Statement of Financial Position
+\end{itemize}
+\includegraphics[width=0.95\linewidth]{SFP}
+
+\begin{itemize}
+  \item Statement of Cash Flows
+\end{itemize}
+\includegraphics[width=0.95\linewidth]{SCF}
+
+
+\end{multicols*}
+\end{document}
