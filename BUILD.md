@@ -9,10 +9,12 @@ This document explains how to compile the LaTeX cheatsheets in this repository.
 The cheatsheets are designed to be compiled with **XeLaTeX** (part of the TeX Live or MiKTeX distributions).
 
 **Recommended versions:**
+
 - TeX Live 2017 or later
 - MiKTeX 2.9 or later
 
 Some files explicitly specify XeLaTeX with the directive:
+
 ```tex
 % !TEX TS-program = xelatex
 ```
@@ -20,15 +22,18 @@ Some files explicitly specify XeLaTeX with the directive:
 ### Python and Pygments
 
 Several cheatsheets use the `minted` package for syntax highlighting, which requires:
+
 - Python 3.x
 - Pygments library
 
 Install Pygments:
+
 ```bash
 pip install Pygments
 ```
 
 Or on Ubuntu/Debian:
+
 ```bash
 sudo apt-get install python3-pygments
 ```
@@ -38,6 +43,7 @@ sudo apt-get install python3-pygments
 All cheatsheets use standard packages that should be available in a full TeX Live installation. The most commonly used packages include:
 
 ### Essential packages (used in all/most cheatsheets):
+
 - `geometry` - Page layout customization
 - `multicol` - Multi-column layouts
 - `tikz` - Graphics and diagrams
@@ -51,16 +57,19 @@ All cheatsheets use standard packages that should be available in a full TeX Liv
 - `wrapfig` - Text wrapping around figures
 
 ### Code highlighting packages:
+
 - `minted` - Syntax highlighting (requires Pygments)
 - `listings` - Alternative code listings
 
 ### Math and technical packages:
+
 - `mathtools` - Enhanced math typesetting
 - `tabularx` - Enhanced tables
 - `hhline` - Table line drawing
 - `makecell` - Table cell formatting
 
 ### Other packages:
+
 - `tikz` libraries: shapes, positioning, arrows, fit, calc, graphs, graphs.standard, trees
 - `verbatim` - Verbatim text
 - `etoolbox` - Programming tools
@@ -74,18 +83,21 @@ All cheatsheets use standard packages that should be available in a full TeX Liv
 ### Option 1: Full TeX Live (Recommended for Linux/macOS)
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt-get update
 sudo apt-get install texlive-full python3-pygments
 ```
 
 **macOS (with Homebrew):**
+
 ```bash
 brew install --cask mactex
 pip3 install Pygments
 ```
 
 **macOS (alternative - BasicTeX):**
+
 ```bash
 brew install --cask basictex
 # Then install required packages with tlmgr:
@@ -109,6 +121,7 @@ sudo tlmgr install collection-xetex collection-fontsrecommended \
 ### Option 3: Overleaf (Online, No Installation Required)
 
 You can upload the .tex files to [Overleaf](https://www.overleaf.com/) and compile them online. Make sure to:
+
 1. Set the compiler to **XeLaTeX** in the project settings
 2. Ensure shell-escape is enabled for minted (usually enabled by default on Overleaf)
 
@@ -123,6 +136,7 @@ xelatex -shell-escape filename.tex
 ```
 
 For files without `minted`, regular compilation works:
+
 ```bash
 xelatex filename.tex
 ```
@@ -130,15 +144,18 @@ xelatex filename.tex
 ### Using LaTeX Editors
 
 **TeXShop / TeXworks:**
+
 1. Open the .tex file
 2. Select "XeLaTeX" from the typesetting menu
 3. Click "Typeset"
 
 **Visual Studio Code (with LaTeX Workshop extension):**
+
 1. Install the LaTeX Workshop extension
 2. Open the .tex file
 3. The extension will auto-detect XeLaTeX from the `% !TEX TS-program = xelatex` directive
 4. Configure shell-escape in settings.json:
+
 ```json
 "latex-workshop.latex.tools": [
   {
@@ -156,6 +173,7 @@ xelatex filename.tex
 ```
 
 **Texpad:**
+
 1. Open the .tex file
 2. The TS-program directive should auto-select XeLaTeX
 3. Enable shell-escape in preferences if minted doesn't work
@@ -189,11 +207,13 @@ echo "Compilation complete: ${BASENAME}.pdf"
 ```
 
 Make it executable:
+
 ```bash
 chmod +x compile.sh
 ```
 
 Use it:
+
 ```bash
 ./compile.sh CS1101S/CS1101S-finals.tex
 ```
@@ -201,6 +221,7 @@ Use it:
 ## Common Issues and Solutions
 
 For detailed troubleshooting, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** which covers:
+
 - Installation problems
 - Compilation errors
 - Package errors
@@ -213,13 +234,15 @@ For detailed troubleshooting, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** w
 ### Issue: "minted Error: Missing Pygments output"
 
 **Solution:** Ensure that:
+
 1. Pygments is installed: `pip install Pygments` or `pip3 install Pygments`
 2. You're compiling with `-shell-escape` flag
 3. Python is in your PATH
 
 ### Issue: "Font not found" errors
 
-**Solution:** 
+**Solution:**
+
 - For TeX Live, ensure you have the font packages installed:
   ```bash
   sudo tlmgr install kpfonts sourcesanspro
@@ -229,6 +252,7 @@ For detailed troubleshooting, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** w
 ### Issue: "Package minted Error: You must invoke LaTeX with the -shell-escape flag"
 
 **Solution:** Always compile with the `-shell-escape` flag when using minted:
+
 ```bash
 xelatex -shell-escape filename.tex
 ```
@@ -237,7 +261,8 @@ xelatex -shell-escape filename.tex
 
 **Cause:** Multiple columns and complex TikZ graphics can be slow to compile.
 
-**Solution:** 
+**Solution:**
+
 - Use a faster computer or compile on a more powerful machine
 - Consider using `lualatex` instead of `xelatex` (usually faster)
 - Draft mode for faster previews: `xelatex -shell-escape -draftmode filename.tex`

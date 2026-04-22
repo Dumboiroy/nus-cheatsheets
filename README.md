@@ -6,14 +6,16 @@ Here be my collections of cheatsheets I made during my undergraduate studies in 
 
 ## Building the Cheatsheets
 
-These cheatsheets are LaTeX documents that need to be compiled. 
+These cheatsheets are LaTeX documents that need to be compiled.
 
 **📖 Documentation:**
+
 - **[QUICKSTART.md](QUICKSTART.md)** - Quick reference for getting started
 - **[BUILD.md](BUILD.md)** - Comprehensive build instructions
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solutions to common problems
 
 **Quick start:**
+
 ```bash
 # Check if your system is ready
 ./check-setup.sh

@@ -3,6 +3,7 @@
 This document addresses specific error messages you might encounter when compiling the cheatsheets.
 
 ## Table of Contents
+
 - [Installation Issues](#installation-issues)
 - [Compilation Errors](#compilation-errors)
 - [Package Errors](#package-errors)
@@ -20,12 +21,14 @@ This document addresses specific error messages you might encounter when compili
 **Solution:**
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt-get update
 sudo apt-get install texlive-xetex
 ```
 
 **macOS:**
+
 ```bash
 brew install --cask mactex
 # Or for a smaller installation:
@@ -35,6 +38,7 @@ sudo tlmgr install xetex
 ```
 
 **Windows:**
+
 - Download and install MiKTeX from https://miktex.org/download
 - Or download TeX Live from https://www.tug.org/texlive/
 
@@ -43,6 +47,7 @@ sudo tlmgr install xetex
 **Cause:** Pygments is not installed.
 
 **Solution:**
+
 ```bash
 # Python 3
 pip3 install Pygments
@@ -55,6 +60,7 @@ sudo apt-get install python3-pygments
 ```
 
 Verify installation:
+
 ```bash
 pygmentize -V
 ```
@@ -70,11 +76,13 @@ pygmentize -V
 **Solution:**
 
 Always compile with `-shell-escape`:
+
 ```bash
 xelatex -shell-escape filename.tex
 ```
 
 For editors:
+
 - **TeXShop:** Add `% !TEX parameter = -shell-escape` at the top of the file
 - **TeXworks:** Preferences → Typesetting → Add `-shell-escape` to the arguments
 - **VS Code:** Update your `latex-workshop.latex.tools` in settings.json (see BUILD.md)
@@ -84,6 +92,7 @@ For editors:
 **Causes and Solutions:**
 
 1. **Pygments not installed:**
+
    ```bash
    pip install Pygments
    ```
@@ -93,6 +102,7 @@ For editors:
    - macOS/Linux: Add Python to your PATH in `.bashrc` or `.zshrc`
 
 3. **Shell-escape not enabled:**
+
    ```bash
    xelatex -shell-escape filename.tex
    ```
@@ -106,6 +116,7 @@ For editors:
 **Cause:** The PDF file is open in another program (PDF viewer).
 
 **Solution:**
+
 - Close the PDF file in your viewer
 - Use a PDF viewer that auto-reloads (like SumatraPDF on Windows, Skim on macOS)
 
@@ -136,6 +147,7 @@ For editors:
 **Solutions by Platform:**
 
 **Ubuntu/Debian:**
+
 ```bash
 # Install all packages (recommended):
 sudo apt-get install texlive-full
@@ -146,18 +158,22 @@ sudo apt-get install texlive-latex-extra texlive-science
 ```
 
 **macOS with MacTeX:**
+
 - Packages should be included. If not:
+
 ```bash
 sudo tlmgr update --self
 sudo tlmgr install <package-name>
 ```
 
 **macOS with BasicTeX:**
+
 ```bash
 sudo tlmgr install collection-fontsrecommended collection-latexextra
 ```
 
 **Windows with MiKTeX:**
+
 - MiKTeX should auto-prompt to install missing packages
 - If not, open MiKTeX Console → Packages → Search for and install the missing package
 
@@ -182,6 +198,7 @@ sudo tlmgr install framed etoolbox ifplatform xstring lineno
 **Solution:**
 
 **TeX Live (Linux):**
+
 ```bash
 sudo apt-get install texlive-fonts-recommended texlive-fonts-extra
 # Or specifically:
@@ -189,11 +206,13 @@ sudo tlmgr install kpfonts sourcesanspro
 ```
 
 **TeX Live (macOS):**
+
 ```bash
 sudo tlmgr install kpfonts sourcesanspro
 ```
 
 **MiKTeX (Windows):**
+
 - Let MiKTeX auto-install, or manually install via MiKTeX Console
 
 ### "! Package fontspec Error: The font 'Source Sans Pro' cannot be found"
@@ -207,10 +226,11 @@ sudo tlmgr install kpfonts sourcesanspro
    - This uses the LaTeX package, not the system font
 
 2. **Update font cache:**
+
    ```bash
    # Linux:
    sudo fc-cache -fv
-   
+
    # macOS:
    atsutil databases -remove
    ```
@@ -226,6 +246,7 @@ sudo tlmgr install kpfonts sourcesanspro
 ### "Package minted Error: You must have `pygmentize' installed"
 
 **Solution:**
+
 ```bash
 pip install Pygments
 
@@ -238,6 +259,7 @@ pygmentize -V
 **Cause:** The specified language in `\begin{minted}{language}` is not recognized.
 
 **Common language names:**
+
 - `javascript` not `js`
 - `python` not `py`
 - `java` not `Java`
@@ -248,15 +270,17 @@ pygmentize -V
 **Solution:** Check the language name in the .tex file and correct it.
 
 List available lexers:
+
 ```bash
 pygmentize -L lexers
 ```
 
-### "_minted directory" permissions error
+### "\_minted directory" permissions error
 
 **Cause:** No write permission in the working directory.
 
 **Solution:**
+
 - Compile from a directory where you have write permissions
 - Don't compile in system directories
 - On Windows, don't compile in C:\Program Files\
@@ -266,6 +290,7 @@ pygmentize -L lexers
 **Cause:** Minted is trying to highlight a file that doesn't exist.
 
 **Solution:**
+
 - Check if the file referenced in `\inputminted{language}{filename}` exists
 - Check the file path is correct
 - For this repository, this shouldn't happen as code is inline, not from files
@@ -279,6 +304,7 @@ pygmentize -L lexers
 **Cause:** Python Scripts directory not in PATH.
 
 **Solution:**
+
 1. Find Python Scripts directory (usually `C:\Users\YourName\AppData\Local\Programs\Python\Python3x\Scripts\`)
 2. Add it to PATH:
    - Right-click "This PC" → Properties → Advanced System Settings
@@ -290,6 +316,7 @@ pygmentize -L lexers
 **Cause:** Command Line Tools not installed (needed for some build tools).
 
 **Solution:**
+
 ```bash
 xcode-select --install
 ```
@@ -299,6 +326,7 @@ xcode-select --install
 **Cause:** Incomplete TeX Live installation.
 
 **Solution:**
+
 ```bash
 # Install everything (recommended):
 sudo apt-get install texlive-full
@@ -316,6 +344,7 @@ If you're still experiencing problems:
 1. **Check the .log file:** Look at `filename.log` for detailed error messages
 
 2. **Try a minimal example:** Create a simple test file:
+
    ```tex
    % !TEX TS-program = xelatex
    \documentclass{article}
@@ -326,11 +355,13 @@ If you're still experiencing problems:
    \end{minted}
    \end{document}
    ```
+
    Compile with: `xelatex -shell-escape test.tex`
 
 3. **Try Overleaf:** Upload to Overleaf.com to see if it compiles there
 
 4. **Check versions:**
+
    ```bash
    xelatex --version
    python --version
