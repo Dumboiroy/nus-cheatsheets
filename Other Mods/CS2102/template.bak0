@@ -1,0 +1,298 @@
+\documentclass[10pt,landscape,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[nosf]{kpfonts}
+\usepackage[t1]{sourcesanspro}
+%\usepackage[lf]{MyriadPro}
+%\usepackage[lf,minionint]{MinionPro}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage[top=0mm,bottom=1mm,left=0mm,right=1mm]{geometry}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{microtype}
+%\usepackage{physics}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{listings}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand\codeblue[1]{\textcolor{blue}{\code{#1}}}
+
+\usepackage{lastpage}
+\usepackage{datetime}
+\yyyymmdddate
+\renewcommand{\dateseparator}{-}
+\let\bar\overline
+
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(0:2cm) circle (1.5cm)}
+
+\colorlet{circle edge}{myblue}
+\colorlet{circle area}{myblue!5}
+
+\tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+outline/.style={draw=circle edge, thick}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%\everymath\expandafter{\the\everymath \color{myblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+
+\renewcommand{\baselinestretch}{.8}
+\pagestyle{empty}
+
+\global\mdfdefinestyle{header}{%
+  linecolor=gray,linewidth=1pt,%
+  leftmargin=0mm,rightmargin=0mm,skipbelow=0mm,skipabove=0mm,
+}
+
+\newcommand{\header}{
+  \begin{mdframed}[style=header]
+    \footnotesize
+    \sffamily
+    ACC1701XA Midterms Cheatsheet v1.1 (\today)\\
+    by~Your Name,~page~\thepage~of~\pageref{LastPage}
+  \end{mdframed}
+}
+
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.,leftmargin=2.5mm}
+\setlist[itemize]{leftmargin=3mm}
+\setlist[enumerate]{leftmargin=3.5mm}
+\setlist{nosep}
+\usepackage{minted}
+
+\def\code#1{\texttt{#1}}
+
+\newenvironment{descitemize} % a mixture of description and itemize
+{\begin{description}[leftmargin=*,before=\let\makelabel\descitemlabel]}
+{\end{description}}
+
+\newcommand{\descitemlabel}[1]{%
+  \textbullet\ \textbf{#1}%
+}
+\makeatletter
+
+
+
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\color{myblue}\sffamily\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\sffamily\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
+  {.2ex}%
+  {.2ex}%x
+{\rmfamily\bfseries}}
+
+\global\let\tikz@ensure@dollar@catcode=\relax
+
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+  \color#1{#2}#3%
+  \endgroup
+}
+
+\makeatother
+\setlength{\parindent}{0pt}
+
+\setminted{tabsize=2, breaklines}
+% Remove belowskip of minted
+\setlength\partopsep{-\topsep}
+
+\newcolumntype{a}{>{\hsize=1.5\hsize}X}
+% \newcolumntype{b}{>{\hsize=.25\hsize}X}
+
+\setlength\columnsep{1.5pt}
+\setlength\columnseprule{0.1pt}
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+\header
+
+\scriptsize
+\begin{multicols*}{4}
+  \raggedcolumns
+\section{Creating and Populating Tables}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Simple Queries}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Aggregate Queries}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Entity-Relationship Model}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+
+\section{Nested Queries}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Relational Algebra}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Stored Procedures and Functions}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Triggers}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{Functional Dependencies}
+\begin{itemize}
+  \item Point 1
+  \item Point 2
+\end{itemize}
+
+\section{BCNF}
+
+\subsection{BCNF: Definition}
+
+A relation $R$ is in Boyce-Codd Normal Form (BCNF) if every non-trivial and decomposed functional dependency (FD) has a superkey on its left-hand side.
+
+\subsection{BCNF Decomposition Algorithm}
+\begin{enumerate}
+    \item Pick a FD $(X \rightarrow Y)$ that violates the BCNF property.
+    \item Fragment 1 contains all attributes in $X^+$.
+    \item Fragment 2 contains all attributes in $R - (X^+ - X)$.
+    \item Repeat steps 1--3 on any fragment that still contains a functional dependency violating BCNF.
+\end{enumerate}
+
+\section{3NF}
+
+\subsection{Third Normal Form (3NF)}
+
+A table satisfies 3NF if and only if, for every non-trivial FD $X \to Y$:
+
+\begin{enumerate}
+  \item $X$ is a superkey, OR
+  \item Every attribute in $Y$ is a prime attribute (i.e., appears in some candidate key).
+\end{enumerate}
+
+\subsection{Minimal Basis}
+
+$\Sigma_{\text{min}}$ is a minimal basis for $\Sigma$ if:
+
+\begin{enumerate}
+  \item Every FD in $\Sigma_{\text{min}}$ can be derived from $\Sigma$ and vice versa.
+  \item Every FD in $\Sigma_{\text{min}}$ is non-trivial and has a single attribute on the right-hand side.
+  \item No FD in $\Sigma_{\text{min}}$ is redundant.
+  \item For each FD in $\Sigma_{\text{min}}$, no attribute on the left-hand side is redundant.
+\end{enumerate}
+
+\subsection{Algorithm for Minimal Basis}
+
+\begin{itemize}
+    \item \textbf{Step 1:} Transform the FDs so that each right-hand side contains only one attribute. (split them up)
+    
+    \item \textbf{Step 2:} Remove redundant (extraneous) attributes from the left-hand side of each FD. 
+    (AB->Y: Remove A then see if B->Y is implied by S, yes means can remove)
+    
+    \item \textbf{Step 3:} Remove redundant FDs. (Remove FD X->Y. if X->Y is still implied by S means can remove.)
+\end{itemize}
+
+\subsection{3NF Decomposition Algorithm}
+
+Given a relation $R$ and a set $S$ of functional dependencies (FDs):
+
+\begin{itemize}
+    \item \textbf{Step 1:} Derive a minimal basis of $S$.
+    
+    \item \textbf{Step 2:} In the minimal basis, combine FDs that have the same left-hand side.
+    
+    \item \textbf{Step 3:} Create a relation (table) for each FD remaining.
+    
+    \item \textbf{Step 4:} If none of the relations contain a key of the original relation $R$, 
+    create an additional relation that contains a key of $R$.
+    
+    \item \textbf{Step 5:} Remove subsumed relations (i.e., relations that are subsets of others).
+\end{itemize}
+
+
+
+
+
+  \begin{tabular}{l}
+    \includegraphics[width=0.5\linewidth]{placeholder-image}
+  \end{tabular}
+  \begin{minipage}{0.15\columnwidth}
+    Placeholder note for image
+  \end{minipage}
+
+  \begin{minipage}{0.5\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      Left Column Text Placeholder abcdefg
+    \end{tabularx}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.5\columnwidth}
+    \begin{tabularx}{\linewidth}{X}
+      Right Column Text Placeholder hijklmnop
+    \end{tabularx}
+  \end{minipage}
+
+  \begin{minted}{C}
+  // comment for codeblock
+  int main() {
+    return 0;
+  }
+  \end{minted}
+
+\end{multicols*}
+\end{document}
