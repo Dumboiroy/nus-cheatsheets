@@ -1,0 +1,78 @@
+\ttl@starttoc {default@1}
+\contentsline {section}{\numberline {1}Introduction}{1}{}%
+\contentsline {subsection}{\numberline {1.1}Characterizing the Environment}{1}{}%
+\contentsline {section}{\numberline {2}Introduction to Machine Learning}{1}{}%
+\contentsline {subsubsection}{\numberline {2.0.1}Types of Feedback}{1}{}%
+\contentsline {subsection}{\numberline {2.1}Decision Trees}{1}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Information Theory}{1}{}%
+\contentsline {subsection}{\numberline {2.2}Performance Measurement}{1}{}%
+\contentsline {subsection}{\numberline {2.3}Pruning}{1}{}%
+\contentsline {section}{\numberline {3}Regularization}{1}{}%
+\contentsline {subsection}{\numberline {3.1}Overfitting}{1}{}%
+\contentsline {subsection}{\numberline {3.2}$L_p$-norm}{1}{}%
+\contentsline {subsection}{\numberline {3.3}Regularization}{1}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Common Regularizers}{1}{}%
+\contentsline {subsection}{\numberline {3.4}Ridge Regression ($L_2$ Regularization)}{1}{}%
+\contentsline {subsection}{\numberline {3.5}Lasso Regression ($L_1$ Regularization)}{1}{}%
+\contentsline {subsection}{\numberline {3.6}Ridge Regression: Gradient}{1}{}%
+\contentsline {section}{\numberline {4}Kernel \& Feature Transformation}{1}{}%
+\contentsline {subsection}{\numberline {4.1}The Kernel Function:}{1}{}%
+\contentsline {subsection}{\numberline {4.2}The Feature Map:}{1}{}%
+\contentsline {subsection}{\numberline {4.3}Fundamental Kernel-Feature Relationship:}{1}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}examples}{1}{}%
+\contentsline {subsection}{\numberline {4.4}The Prediction Formula (Kernel Methods)}{1}{}%
+\contentsline {subsection}{\numberline {4.5}Feature Transformation}{1}{}%
+\contentsline {subsection}{\numberline {4.6}Linear Combination of Vectors}{1}{}%
+\contentsline {subsection}{\numberline {4.7}Dual Formulation: Key Theorem}{1}{}%
+\contentsline {subsection}{\numberline {4.8}Normal Equation (Ridge)}{1}{}%
+\contentsline {section}{\numberline {5}Neural Networks}{1}{}%
+\contentsline {subsection}{\numberline {5.1}Neuron Model}{1}{}%
+\contentsline {subsection}{\numberline {5.2}Common Activation Functions}{1}{}%
+\contentsline {subsection}{\numberline {5.3}Neural Networks}{1}{}%
+\contentsline {subsection}{\numberline {5.4}Feed-Forward Neural Networks (FFNNs)}{1}{}%
+\contentsline {subsection}{\numberline {5.5}FCNN: Matrix Representation}{1}{}%
+\contentsline {subsection}{\numberline {5.6}Gradient Formula}{2}{}%
+\contentsline {subsection}{\numberline {5.7}Derivatives of Common Loss Functions}{2}{}%
+\contentsline {subsection}{\numberline {5.8}The Error Signal: $\delta ^{[l]}$}{2}{}%
+\contentsline {subsection}{\numberline {5.9}Dying ReLU}{2}{}%
+\contentsline {subsection}{\numberline {5.10}Universal Approximation (Informal)}{2}{}%
+\contentsline {subsection}{\numberline {5.11}Regression Tasks}{2}{}%
+\contentsline {subsection}{\numberline {5.12}Binary Classification}{2}{}%
+\contentsline {subsection}{\numberline {5.13}Multi-class Classification}{2}{}%
+\contentsline {subsection}{\numberline {5.14}One-Hot Encoding}{2}{}%
+\contentsline {subsection}{\numberline {5.15}Multi-label Classification}{2}{}%
+\contentsline {subsection}{\numberline {5.16}Learning via Gradient Descent}{2}{}%
+\contentsline {subsection}{\numberline {5.17}Backpropagation}{2}{}%
+\contentsline {subsection}{\numberline {5.18}Data Format}{2}{}%
+\contentsline {section}{\numberline {6}Convolutional Neural Networks (CNNs)}{2}{}%
+\contentsline {subsection}{\numberline {6.1}Convolution Operation}{2}{}%
+\contentsline {subsection}{\numberline {6.2}Convolutional Layer}{2}{}%
+\contentsline {subsection}{\numberline {6.3}Pooling Layers}{2}{}%
+\contentsline {subsection}{\numberline {6.4}CNN Architecture}{2}{}%
+\contentsline {subsection}{\numberline {6.5}Sequential Data Representation}{2}{}%
+\contentsline {subsection}{\numberline {6.6}Recurrent Neural Networks (RNNs)}{2}{}%
+\contentsline {subsection}{\numberline {6.7}RNN Variants}{2}{}%
+\contentsline {subsection}{\numberline {6.8}RNN Bottlenecks}{2}{}%
+\contentsline {subsection}{\numberline {6.9}Text Representation}{2}{}%
+\contentsline {subsection}{\numberline {6.10}Embedding Layer}{2}{}%
+\contentsline {subsection}{\numberline {6.11}Attention Mechanism}{2}{}%
+\contentsline {subsection}{\numberline {6.12}Self-Attention: Query, Key, Value}{2}{}%
+\contentsline {subsection}{\numberline {6.13}Self-Attention Advantages}{2}{}%
+\contentsline {section}{\numberline {7}Unsupervised Learning with NN}{2}{}%
+\contentsline {subsection}{\numberline {7.1}Supervised Learning Bottleneck}{2}{}%
+\contentsline {subsection}{\numberline {7.2}Unsupervised Learning Fundamentals}{2}{}%
+\contentsline {subsection}{\numberline {7.3}Self-Supervised Learning Framework}{2}{}%
+\contentsline {subsection}{\numberline {7.4}Rotation Prediction Pretext Task}{2}{}%
+\contentsline {subsection}{\numberline {7.5}Transfer Learning \& Fine-Tuning}{2}{}%
+\contentsline {subsection}{\numberline {7.6}Key Concepts}{3}{}%
+\contentsline {section}{\numberline {8}Uncategorized}{3}{}%
+\contentsline {subsection}{\numberline {8.1}Linear \& Logistic Regression Cheatsheet}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.1}Linear Regression Basics}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.2}SGD Update (6B)}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.3}Linear Dependence \& Convexity (6C)}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.4}Feature Scaling for Stability (6D)}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.5}Logistic Regression (6E)}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.6}Normal Equation (6F)}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.7}Inverting 2x2 Matrix}{3}{}%
+\contentsline {subsubsection}{\numberline {8.1.8}distance of point $x$ from some hyperplane $P$ (or $B$ for boundary)}{3}{}%
+\contentsfinish 
